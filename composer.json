@@ -1,0 +1,52 @@
+{
+    "name": "widefocus/feed-writer-builder",
+    "description": "This package contains models to build a feed writer based on a feed entity.",
+    "type": "library",
+    "license": "proprietary",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Ashoka de Wit",
+            "email": "contact@widefocus.net"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://bitbucket.org/widefocus/feed-entity"
+        },
+        {
+            "type": "vcs",
+            "url": "https://bitbucket.org/widefocus/feed-writer"
+        },
+        {
+            "type": "vcs",
+            "url": "https://bitbucket.org/widefocus/parameters"
+        },
+        {
+            "type": "vcs",
+            "url": "https://bitbucket.org/widefocus/filter"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "widefocus/feed-entity": "dev-master",
+        "widefocus/feed-writer": "dev-master",
+        "widefocus/filter": "dev-master",
+        "widefocus/parameters": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "WideFocus\\Feed\\Writer\\Builder\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WideFocus\\Feed\\Writer\\Builder\\Tests\\": "tests"
+        }
+    }
+}
