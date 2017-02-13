@@ -18,7 +18,7 @@ class WriterManager implements WriterManagerInterface
     /**
      * @var WriterFactoryInterface[]
      */
-    private $factories;
+    private $factories = [];
 
     /**
      * Create a writer.

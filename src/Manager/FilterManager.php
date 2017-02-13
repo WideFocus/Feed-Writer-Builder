@@ -53,7 +53,7 @@ class FilterManager implements FilterManagerInterface
     public function getFilterChain(): FilterChainInterface
     {
         /** @var FilterChainInterface $filter */
-        $filter = clone $this->filters[self::CHAIN_NAME];
+        $filter = $this->getFilter(self::CHAIN_NAME);
         return $filter;
     }
 

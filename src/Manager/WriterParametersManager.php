@@ -17,7 +17,7 @@ class WriterParametersManager implements WriterParametersManagerInterface
     /**
      * @var WriterParametersFactoryInterface[]
      */
-    private $factories;
+    private $factories = [];
 
     /**
      * Create parameters.
