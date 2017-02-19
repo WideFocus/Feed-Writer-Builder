@@ -43,23 +43,23 @@ class WriterFieldsBuilderTest extends PHPUnit_Framework_TestCase
         $fooFeedField = $this->createMock(FeedFieldInterface::class);
         $fooFeedField
             ->expects($this->once())
-            ->method('getCode')
+            ->method('getName')
             ->willReturn('foo');
 
         $fooFeedField
             ->expects($this->once())
-            ->method('getName')
+            ->method('getLabel')
             ->willReturn('foo_label');
         
         $barFeedField = $this->createMock(FeedFieldInterface::class);
         $barFeedField
             ->expects($this->once())
-            ->method('getCode')
+            ->method('getName')
             ->willReturn('bar');
 
         $barFeedField
             ->expects($this->once())
-            ->method('getName')
+            ->method('getLabel')
             ->willReturn('bar_label');
 
         $feed = $this->createMock(FeedInterface::class);
