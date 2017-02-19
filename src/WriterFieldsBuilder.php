@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright WideFocus. All rights reserved.
- * http://www.widefocus.net
+ * Copyright WideFocus. See LICENSE.txt.
+ * https://www.widefocus.net
  */
 
 namespace WideFocus\Feed\Writer\Builder;
@@ -51,8 +51,8 @@ class WriterFieldsBuilder implements WriterFieldsBuilderInterface
         foreach ($feed->getFields() as $feedField) {
             $fields[] = $this->fieldFactory
                 ->createField(
-                    $feedField->getCode(),
                     $feedField->getName(),
+                    $feedField->getLabel(),
                     $this->filterBuilder
                         ->buildFilter($feedField)
                 );
