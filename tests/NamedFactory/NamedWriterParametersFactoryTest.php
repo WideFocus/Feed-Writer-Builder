@@ -4,17 +4,17 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Tests\Manager;
+namespace WideFocus\Feed\Writer\Builder\Tests\NamedFactory;
 
 use PHPUnit_Framework_TestCase;
-use WideFocus\Feed\Writer\Builder\Manager\WriterParametersManager;
+use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterParametersFactory;
 use WideFocus\Feed\Writer\WriterParametersFactoryInterface;
 use WideFocus\Feed\Writer\WriterParametersInterface;
 
 /**
- * @coversDefaultClass \WideFocus\Feed\Writer\Builder\Manager\WriterParametersManager
+ * @coversDefaultClass \WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterParametersFactory
  */
-class WriterParametersManagerTest extends PHPUnit_Framework_TestCase
+class NamedWriterParametersFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @return WriterParametersInterface
@@ -33,15 +33,15 @@ class WriterParametersManagerTest extends PHPUnit_Framework_TestCase
             ->with($data)
             ->willReturn($parameters);
 
-        $manager = new WriterParametersManager();
-        $manager->addParametersFactory($factory, 'foo');
-        return $manager->createParameters('foo', $data);
+        $namedFactory = new NamedWriterParametersFactory();
+        $namedFactory->addParametersFactory($factory, 'foo');
+        return $namedFactory->createParameters('foo', $data);
     }
 
     /**
      * @return void
      *
-     * @expectedException \WideFocus\Feed\Writer\Builder\Manager\InvalidWriterParametersException
+     * @expectedException \WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterParametersException
      *
      * @covers ::createParameters
      */
@@ -49,7 +49,8 @@ class WriterParametersManagerTest extends PHPUnit_Framework_TestCase
     {
         $data = ['some_data'];
 
-        $manager = new WriterParametersManager();
-        $manager->createParameters('not_existing', $data);
+        $namedFactory = new NamedWriterParametersFactory();
+        $namedFactory->createParameters('not_existing', $data);
     }
 }
+

@@ -10,7 +10,7 @@ use ArrayIterator;
 use PHPUnit_Framework_TestCase;
 use WideFocus\Feed\Entity\FeedInterface;
 use WideFocus\Feed\Entity\Writer\FeedWriterParametersInterface;
-use WideFocus\Feed\Writer\Builder\Manager\WriterParametersManagerInterface;
+use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterParametersFactoryInterface;
 use WideFocus\Feed\Writer\Builder\WriterParametersBuilder;
 use WideFocus\Feed\Writer\WriterParametersInterface;
 
@@ -27,10 +27,13 @@ class WriterParametersBuilderTest extends PHPUnit_Framework_TestCase
     public function testConstructor(): WriterParametersBuilder
     {
         return new WriterParametersBuilder(
-            $this->createMock(WriterParametersManagerInterface::class)
+            $this->createMock(NamedWriterParametersFactoryInterface::class)
         );
     }
 
+    /**
+     * @return void
+     */
     public function testBuildParameters()
     {
         $parameters = ['foo' => 'foo_value', 'bar' => 'bar_value'];
@@ -54,14 +57,14 @@ class WriterParametersBuilderTest extends PHPUnit_Framework_TestCase
 
         $writerParameters = $this->createMock(WriterParametersInterface::class);
 
-        $parametersManager = $this->createMock(WriterParametersManagerInterface::class);
-        $parametersManager
+        $parametersFactory = $this->createMock(NamedWriterParametersFactoryInterface::class);
+        $parametersFactory
             ->expects($this->once())
             ->method('createParameters')
             ->with('foo', $parameters)
             ->willReturn($writerParameters);
 
-        $builder = new WriterParametersBuilder($parametersManager);
+        $builder = new WriterParametersBuilder($parametersFactory);
         $this->assertEquals($writerParameters, $builder->buildParameters($feed));
     }
 }

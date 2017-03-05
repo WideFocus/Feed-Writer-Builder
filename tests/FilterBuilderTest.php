@@ -11,7 +11,7 @@ use WideFocus\Feed\Entity\Field\FeedFieldFilterInterface;
 use WideFocus\Feed\Entity\Field\FeedFieldInterface;
 use WideFocus\Feed\Writer\Builder\FilterBuilder;
 use WideFocus\Feed\Writer\Builder\FilterParametersBuilderInterface;
-use WideFocus\Feed\Writer\Builder\Manager\FilterManagerInterface;
+use WideFocus\Feed\Writer\Builder\NamedFactory\NamedFilterFactoryInterface;
 use WideFocus\Filter\FilterChainInterface;
 use WideFocus\Filter\FilterInterface;
 use WideFocus\Parameters\ParameterBagInterface;
@@ -30,7 +30,7 @@ class FilterBuilderTest extends PHPUnit_Framework_TestCase
     public function testConstructor(): FilterBuilder
     {
         return new FilterBuilder(
-            $this->createMock(FilterManagerInterface::class),
+            $this->createMock(NamedFilterFactoryInterface::class),
             $this->createMock(ParameterSetterInterface::class),
             $this->createMock(FilterParametersBuilderInterface::class)
         );
@@ -69,8 +69,8 @@ class FilterBuilderTest extends PHPUnit_Framework_TestCase
             ->method('addFilter')
             ->withConsecutive([$fooFilter], [$barFilter]);
 
-        $filterManager = $this->createMock(FilterManagerInterface::class);
-        $filterManager
+        $filterFactory = $this->createMock(NamedFilterFactoryInterface::class);
+        $filterFactory
             ->expects($this->exactly(2))
             ->method('getFilter')
             ->willReturnMap([
@@ -78,7 +78,7 @@ class FilterBuilderTest extends PHPUnit_Framework_TestCase
                 ['bar', $barFilter]
             ]);
 
-        $filterManager->expects($this->once())
+        $filterFactory->expects($this->once())
             ->method('getFilterChain')
             ->willReturn($filterChain);
 
@@ -99,7 +99,7 @@ class FilterBuilderTest extends PHPUnit_Framework_TestCase
             ->with($fooFilter, $fooParameters);
 
         $builder = new FilterBuilder(
-            $filterManager,
+            $filterFactory,
             $parameterSetter,
             $parameterBuilder
         );

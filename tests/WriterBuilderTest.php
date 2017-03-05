@@ -7,7 +7,7 @@
 namespace WideFocus\Feed\Writer\Builder\Tests;
 
 use WideFocus\Feed\Entity\FeedInterface;
-use WideFocus\Feed\Writer\Builder\Manager\WriterManagerInterface;
+use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterFactoryInterface;
 use WideFocus\Feed\Writer\Builder\WriterBuilder;
 use WideFocus\Feed\Writer\Builder\WriterFieldsBuilderInterface;
 use WideFocus\Feed\Writer\Builder\WriterParametersBuilderInterface;
@@ -28,7 +28,7 @@ class WriterBuilderTest extends \PHPUnit_Framework_TestCase
     public function testConstructor(): WriterBuilder
     {
         return new WriterBuilder(
-            $this->createMock(WriterManagerInterface::class),
+            $this->createMock(NamedWriterFactoryInterface::class),
             $this->createMock(WriterParametersBuilderInterface::class),
             $this->createMock(WriterFieldsBuilderInterface::class)
         );
@@ -70,15 +70,15 @@ class WriterBuilderTest extends \PHPUnit_Framework_TestCase
             ->method('setFields')
             ->with($fields);
 
-        $manager = $this->createMock(WriterManagerInterface::class);
-        $manager
+        $factory = $this->createMock(NamedWriterFactoryInterface::class);
+        $factory
             ->expects($this->once())
             ->method('createWriter')
             ->with('foo', $parameters)
             ->willReturn($writer);
 
         $builder = new WriterBuilder(
-            $manager,
+            $factory,
             $parametersBuilder,
             $fieldsBuilder
         );

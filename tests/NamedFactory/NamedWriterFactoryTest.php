@@ -4,19 +4,18 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Tests\Manager;
+namespace WideFocus\Feed\Writer\Builder\Tests\NamedFactory;
 
 use PHPUnit_Framework_TestCase;
-use WideFocus\Feed\Writer\Builder\Manager\InvalidWriterException;
-use WideFocus\Feed\Writer\Builder\Manager\WriterManager;
+use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterFactory;
 use WideFocus\Feed\Writer\WriterFactoryInterface;
 use WideFocus\Feed\Writer\WriterInterface;
 use WideFocus\Feed\Writer\WriterParametersInterface;
 
 /**
- * @coversDefaultClass \WideFocus\Feed\Writer\Builder\Manager\WriterManager
+ * @coversDefaultClass \WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterFactory
  */
-class WriterManagerTest extends PHPUnit_Framework_TestCase
+class NamedWriterFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @return WriterInterface
@@ -35,15 +34,15 @@ class WriterManagerTest extends PHPUnit_Framework_TestCase
             ->with($parameters)
             ->willReturn($writer);
 
-        $manager = new WriterManager();
-        $manager->addWriterFactory($factory, 'foo');
-        return $manager->createWriter('foo', $parameters);
+        $namedFactory = new NamedWriterFactory();
+        $namedFactory->addWriterFactory($factory, 'foo');
+        return $namedFactory->createWriter('foo', $parameters);
     }
 
     /**
      * @return void
      *
-     * @expectedException \WideFocus\Feed\Writer\Builder\Manager\InvalidWriterException
+     * @expectedException \WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterException
      *
      * @covers ::createWriter
      */
@@ -51,7 +50,7 @@ class WriterManagerTest extends PHPUnit_Framework_TestCase
     {
         $parameters = $this->createMock(WriterParametersInterface::class);
 
-        $manager = new WriterManager();
-        $manager->createWriter('not_existing', $parameters);
+        $namedFactory = new NamedWriterFactory();
+        $namedFactory->createWriter('not_existing', $parameters);
     }
 }
