@@ -7,7 +7,7 @@
 namespace WideFocus\Feed\Writer\Builder;
 
 use WideFocus\Feed\Entity\Field\FeedFieldInterface;
-use WideFocus\Feed\Writer\Builder\Manager\FilterManagerInterface;
+use WideFocus\Feed\Writer\Builder\NamedFactory\NamedFilterFactoryInterface;
 use WideFocus\Parameters\ParameterSetterInterface;
 
 /**
@@ -16,9 +16,9 @@ use WideFocus\Parameters\ParameterSetterInterface;
 class FilterBuilder implements FilterBuilderInterface
 {
     /**
-     * @var FilterManagerInterface
+     * @var NamedFilterFactoryInterface
      */
-    private $filterManager;
+    private $filterFactory;
 
     /**
      * @var ParameterSetterInterface
@@ -33,16 +33,16 @@ class FilterBuilder implements FilterBuilderInterface
     /**
      * Constructor.
      *
-     * @param FilterManagerInterface           $filterManager
+     * @param NamedFilterFactoryInterface      $filterFactory
      * @param ParameterSetterInterface         $parameterSetter
      * @param FilterParametersBuilderInterface $parameterBuilder
      */
     public function __construct(
-        FilterManagerInterface $filterManager,
+        NamedFilterFactoryInterface $filterFactory,
         ParameterSetterInterface $parameterSetter,
         FilterParametersBuilderInterface $parameterBuilder
     ) {
-        $this->filterManager    = $filterManager;
+        $this->filterFactory    = $filterFactory;
         $this->parameterSetter  = $parameterSetter;
         $this->parameterBuilder = $parameterBuilder;
     }
@@ -57,11 +57,11 @@ class FilterBuilder implements FilterBuilderInterface
     public function buildFilter(
         FeedFieldInterface $feedField
     ): callable {
-        $chain = $this->filterManager
+        $chain = $this->filterFactory
             ->getFilterChain();
 
         foreach ($feedField->getFilters() as $feedFieldFilter) {
-            $filter = $this->filterManager
+            $filter = $this->filterFactory
                 ->getFilter($feedFieldFilter->getFilterType());
 
             if (is_object($filter)) {

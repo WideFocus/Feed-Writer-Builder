@@ -4,7 +4,7 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Manager;
+namespace WideFocus\Feed\Writer\Builder\NamedFactory;
 
 use WideFocus\Feed\Writer\WriterFactoryInterface;
 use WideFocus\Feed\Writer\WriterInterface;
@@ -13,7 +13,7 @@ use WideFocus\Feed\Writer\WriterParametersInterface;
 /**
  * Manages writers.
  */
-class WriterManager implements WriterManagerInterface
+class NamedWriterFactory implements NamedWriterFactoryInterface
 {
     /**
      * @var WriterFactoryInterface[]

@@ -4,14 +4,14 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Manager;
+namespace WideFocus\Feed\Writer\Builder\NamedFactory;
 
 use WideFocus\Filter\FilterChainInterface;
 
 /**
- * Manages filters.
+ * Creates filters by name.
  */
-class FilterManager implements FilterManagerInterface
+class NamedFilterFactory implements NamedFilterFactoryInterface
 {
     /**
      * @var callable[]

@@ -7,7 +7,7 @@
 namespace WideFocus\Feed\Writer\Builder;
 
 use WideFocus\Feed\Entity\FeedInterface;
-use WideFocus\Feed\Writer\Builder\Manager\WriterParametersManagerInterface;
+use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterParametersFactoryInterface;
 use WideFocus\Feed\Writer\WriterParametersInterface;
 
 /**
@@ -16,19 +16,19 @@ use WideFocus\Feed\Writer\WriterParametersInterface;
 class WriterParametersBuilder implements WriterParametersBuilderInterface
 {
     /**
-     * @var WriterParametersManagerInterface
+     * @var NamedWriterParametersFactoryInterface
      */
-    private $parametersManager;
+    private $parametersFactory;
 
     /**
      * Constructor.
      *
-     * @param WriterParametersManagerInterface $parametersManager
+     * @param NamedWriterParametersFactoryInterface $parametersFactory
      */
     public function __construct(
-        WriterParametersManagerInterface $parametersManager
+        NamedWriterParametersFactoryInterface $parametersFactory
     ) {
-        $this->parametersManager = $parametersManager;
+        $this->parametersFactory = $parametersFactory;
     }
 
     /**
@@ -41,7 +41,7 @@ class WriterParametersBuilder implements WriterParametersBuilderInterface
     public function buildParameters(
         FeedInterface $feed
     ): WriterParametersInterface {
-        return $this->parametersManager
+        return $this->parametersFactory
             ->createParameters(
                 $feed->getWriterType(),
                 iterator_to_array($feed->getWriterParameters())

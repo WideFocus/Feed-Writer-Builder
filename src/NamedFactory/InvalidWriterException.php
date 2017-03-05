@@ -4,7 +4,7 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Manager;
+namespace WideFocus\Feed\Writer\Builder\NamedFactory;
 
 use InvalidArgumentException;
 
@@ -20,7 +20,7 @@ class InvalidWriterException extends InvalidArgumentException
      *
      * @return InvalidWriterException
      */
-    public static function notRegistered(string $name)
+    public static function notRegistered(string $name): InvalidWriterException
     {
         return new static(
             sprintf('A writer with name %s has not been registered', $name)

@@ -4,7 +4,7 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Manager;
+namespace WideFocus\Feed\Writer\Builder\NamedFactory;
 
 use InvalidArgumentException;
 
@@ -20,7 +20,7 @@ class InvalidFilterException extends InvalidArgumentException
      *
      * @return InvalidFilterException
      */
-    public static function notRegistered(string $name)
+    public static function notRegistered(string $name): InvalidFilterException
     {
         return new static(
             sprintf('A filter with name %s has not been registered', $name)

@@ -7,7 +7,7 @@
 namespace WideFocus\Feed\Writer\Builder;
 
 use WideFocus\Feed\Entity\FeedInterface;
-use WideFocus\Feed\Writer\Builder\Manager\WriterManagerInterface;
+use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterFactoryInterface;
 use WideFocus\Feed\Writer\WriterInterface;
 
 /**
@@ -16,9 +16,9 @@ use WideFocus\Feed\Writer\WriterInterface;
 class WriterBuilder implements WriterBuilderInterface
 {
     /**
-     * @var WriterManagerInterface
+     * @var NamedWriterFactoryInterface
      */
-    private $writerManager;
+    private $writerFactory;
 
     /**
      * @var WriterParametersBuilderInterface
@@ -33,16 +33,16 @@ class WriterBuilder implements WriterBuilderInterface
     /**
      * Constructor.
      *
-     * @param WriterManagerInterface           $writerManager
+     * @param NamedWriterFactoryInterface      $writerFactory
      * @param WriterParametersBuilderInterface $parametersBuilder
      * @param WriterFieldsBuilderInterface     $fieldsBuilder
      */
     public function __construct(
-        WriterManagerInterface $writerManager,
+        NamedWriterFactoryInterface $writerFactory,
         WriterParametersBuilderInterface $parametersBuilder,
         WriterFieldsBuilderInterface $fieldsBuilder
     ) {
-        $this->writerManager     = $writerManager;
+        $this->writerFactory     = $writerFactory;
         $this->parametersBuilder = $parametersBuilder;
         $this->fieldsBuilder     = $fieldsBuilder;
     }
@@ -59,7 +59,7 @@ class WriterBuilder implements WriterBuilderInterface
         $parameters = $this->parametersBuilder
             ->buildParameters($feed);
 
-        $writer = $this->writerManager
+        $writer = $this->writerFactory
             ->createWriter(
                 $feed->getWriterType(),
                 $parameters
