@@ -10,7 +10,7 @@ use ArrayIterator;
 use PHPUnit_Framework_TestCase;
 use WideFocus\Feed\Entity\FeedInterface;
 use WideFocus\Feed\Entity\Writer\FeedWriterParametersInterface;
-use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterParametersFactoryInterface;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\WriterParametersFactoryAggregateInterface;
 use WideFocus\Feed\Writer\Builder\WriterParametersBuilder;
 use WideFocus\Feed\Writer\WriterParametersInterface;
 
@@ -27,7 +27,7 @@ class WriterParametersBuilderTest extends PHPUnit_Framework_TestCase
     public function testConstructor(): WriterParametersBuilder
     {
         return new WriterParametersBuilder(
-            $this->createMock(NamedWriterParametersFactoryInterface::class)
+            $this->createMock(WriterParametersFactoryAggregateInterface::class)
         );
     }
 
@@ -57,7 +57,7 @@ class WriterParametersBuilderTest extends PHPUnit_Framework_TestCase
 
         $writerParameters = $this->createMock(WriterParametersInterface::class);
 
-        $parametersFactory = $this->createMock(NamedWriterParametersFactoryInterface::class);
+        $parametersFactory = $this->createMock(WriterParametersFactoryAggregateInterface::class);
         $parametersFactory
             ->expects($this->once())
             ->method('createParameters')

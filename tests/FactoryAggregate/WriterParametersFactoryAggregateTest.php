@@ -4,17 +4,17 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Tests\NamedFactory;
+namespace WideFocus\Feed\Writer\Builder\Tests\FactoryAggregate;
 
 use PHPUnit_Framework_TestCase;
-use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterParametersFactory;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\WriterParametersFactoryAggregate;
 use WideFocus\Feed\Writer\WriterParametersFactoryInterface;
 use WideFocus\Feed\Writer\WriterParametersInterface;
 
 /**
- * @coversDefaultClass \WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterParametersFactory
+ * @coversDefaultClass \WideFocus\Feed\Writer\Builder\FactoryAggregate\WriterParametersFactoryAggregate
  */
-class NamedWriterParametersFactoryTest extends PHPUnit_Framework_TestCase
+class WriterParametersFactoryAggregateTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @return WriterParametersInterface
@@ -33,15 +33,15 @@ class NamedWriterParametersFactoryTest extends PHPUnit_Framework_TestCase
             ->with($data)
             ->willReturn($parameters);
 
-        $namedFactory = new NamedWriterParametersFactory();
-        $namedFactory->addParametersFactory($factory, 'foo');
-        return $namedFactory->createParameters('foo', $data);
+        $factoryAggregate = new WriterParametersFactoryAggregate();
+        $factoryAggregate->addParametersFactory($factory, 'foo');
+        return $factoryAggregate->createParameters('foo', $data);
     }
 
     /**
      * @return void
      *
-     * @expectedException \WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterParametersException
+     * @expectedException \WideFocus\Feed\Writer\Builder\FactoryAggregate\InvalidWriterParametersException
      *
      * @covers ::createParameters
      */
@@ -49,8 +49,8 @@ class NamedWriterParametersFactoryTest extends PHPUnit_Framework_TestCase
     {
         $data = ['some_data'];
 
-        $namedFactory = new NamedWriterParametersFactory();
-        $namedFactory->createParameters('not_existing', $data);
+        $factoryAggregate = new WriterParametersFactoryAggregate();
+        $factoryAggregate->createParameters('not_existing', $data);
     }
 }
 

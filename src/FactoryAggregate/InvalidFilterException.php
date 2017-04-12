@@ -4,7 +4,7 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\NamedFactory;
+namespace WideFocus\Feed\Writer\Builder\FactoryAggregate;
 
 use InvalidArgumentException;
 

@@ -4,13 +4,13 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Tests\NamedFactory;
+namespace WideFocus\Feed\Writer\Builder\Tests\FactoryAggregate;
 
 use PHPUnit_Framework_TestCase;
-use WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterParametersException;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\InvalidWriterParametersException;
 
 /**
- * @coversDefaultClass \WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterParametersException
+ * @coversDefaultClass \WideFocus\Feed\Writer\Builder\FactoryAggregate\InvalidWriterParametersException
  */
 class InvalidWriterParametersExceptionTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +19,7 @@ class InvalidWriterParametersExceptionTest extends PHPUnit_Framework_TestCase
      *
      * @throws InvalidWriterParametersException Always.
      *
-     * @expectedException \WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterParametersException
+     * @expectedException \WideFocus\Feed\Writer\Builder\FactoryAggregate\InvalidWriterParametersException
      * @expectedExceptionMessage A writer parameters object with name foo has not been registered
      *
      * @covers ::notRegistered

@@ -11,7 +11,7 @@ use WideFocus\Feed\Entity\Field\FeedFieldFilterInterface;
 use WideFocus\Feed\Entity\Field\FeedFieldInterface;
 use WideFocus\Feed\Writer\Builder\FilterBuilder;
 use WideFocus\Feed\Writer\Builder\FilterParametersBuilderInterface;
-use WideFocus\Feed\Writer\Builder\NamedFactory\NamedFilterFactoryInterface;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\FilterFactoryAggregateInterface;
 use WideFocus\Filter\FilterChainInterface;
 use WideFocus\Filter\FilterInterface;
 use WideFocus\Parameters\ParameterBagInterface;
@@ -30,7 +30,7 @@ class FilterBuilderTest extends PHPUnit_Framework_TestCase
     public function testConstructor(): FilterBuilder
     {
         return new FilterBuilder(
-            $this->createMock(NamedFilterFactoryInterface::class),
+            $this->createMock(FilterFactoryAggregateInterface::class),
             $this->createMock(ParameterSetterInterface::class),
             $this->createMock(FilterParametersBuilderInterface::class)
         );
@@ -69,7 +69,7 @@ class FilterBuilderTest extends PHPUnit_Framework_TestCase
             ->method('addFilter')
             ->withConsecutive([$fooFilter], [$barFilter]);
 
-        $filterFactory = $this->createMock(NamedFilterFactoryInterface::class);
+        $filterFactory = $this->createMock(FilterFactoryAggregateInterface::class);
         $filterFactory
             ->expects($this->exactly(2))
             ->method('getFilter')

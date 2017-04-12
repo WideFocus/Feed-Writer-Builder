@@ -4,18 +4,18 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Tests\NamedFactory;
+namespace WideFocus\Feed\Writer\Builder\Tests\FactoryAggregate;
 
 use PHPUnit_Framework_TestCase;
-use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterFactory;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\WriterFactoryAggregate;
 use WideFocus\Feed\Writer\WriterFactoryInterface;
 use WideFocus\Feed\Writer\WriterInterface;
 use WideFocus\Feed\Writer\WriterParametersInterface;
 
 /**
- * @coversDefaultClass \WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterFactory
+ * @coversDefaultClass \WideFocus\Feed\Writer\Builder\FactoryAggregate\WriterFactoryAggregate
  */
-class NamedWriterFactoryTest extends PHPUnit_Framework_TestCase
+class WriterFactoryAggregateTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @return WriterInterface
@@ -34,15 +34,15 @@ class NamedWriterFactoryTest extends PHPUnit_Framework_TestCase
             ->with($parameters)
             ->willReturn($writer);
 
-        $namedFactory = new NamedWriterFactory();
-        $namedFactory->addWriterFactory($factory, 'foo');
-        return $namedFactory->createWriter('foo', $parameters);
+        $factoryAggregate = new WriterFactoryAggregate();
+        $factoryAggregate->addWriterFactory($factory, 'foo');
+        return $factoryAggregate->createWriter('foo', $parameters);
     }
 
     /**
      * @return void
      *
-     * @expectedException \WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterException
+     * @expectedException \WideFocus\Feed\Writer\Builder\FactoryAggregate\InvalidWriterException
      *
      * @covers ::createWriter
      */
@@ -50,7 +50,7 @@ class NamedWriterFactoryTest extends PHPUnit_Framework_TestCase
     {
         $parameters = $this->createMock(WriterParametersInterface::class);
 
-        $namedFactory = new NamedWriterFactory();
-        $namedFactory->createWriter('not_existing', $parameters);
+        $factoryAggregate = new WriterFactoryAggregate();
+        $factoryAggregate->createWriter('not_existing', $parameters);
     }
 }

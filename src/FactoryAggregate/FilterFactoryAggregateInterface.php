@@ -4,14 +4,14 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\NamedFactory;
+namespace WideFocus\Feed\Writer\Builder\FactoryAggregate;
 
 use WideFocus\Filter\FilterChainInterface;
 
 /**
  * Manages filters.
  */
-interface NamedFilterFactoryInterface
+interface FilterFactoryAggregateInterface
 {
     /**
      * Name for the filter chain.

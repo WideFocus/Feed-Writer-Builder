@@ -4,7 +4,7 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\NamedFactory;
+namespace WideFocus\Feed\Writer\Builder\FactoryAggregate;
 
 use WideFocus\Feed\Writer\WriterParametersFactoryInterface;
 use WideFocus\Feed\Writer\WriterParametersInterface;
@@ -12,13 +12,8 @@ use WideFocus\Feed\Writer\WriterParametersInterface;
 /**
  * Manages writer parameters objects.
  */
-class NamedWriterParametersFactory implements NamedWriterParametersFactoryInterface
+interface WriterParametersFactoryAggregateInterface
 {
-    /**
-     * @var WriterParametersFactoryInterface[]
-     */
-    private $factories = [];
-
     /**
      * Create parameters.
      *
@@ -27,20 +22,13 @@ class NamedWriterParametersFactory implements NamedWriterParametersFactoryInterf
      *
      * @return WriterParametersInterface
      *
-     * @throws InvalidWriterParametersException When the requested parameters
-     * object does not have a factory.
+     * @throws InvalidWriterException When the requested parameters object
+     * does not have a factory.
      */
     public function createParameters(
         string $name,
         array $data = []
-    ): WriterParametersInterface {
-        if (!array_key_exists($name, $this->factories)) {
-            throw InvalidWriterParametersException::notRegistered($name);
-        }
-
-        return $this->factories[$name]
-            ->createParameters($data);
-    }
+    ): WriterParametersInterface;
 
     /**
      * Add a parameters factory.
@@ -53,7 +41,5 @@ class NamedWriterParametersFactory implements NamedWriterParametersFactoryInterf
     public function addParametersFactory(
         WriterParametersFactoryInterface $factory,
         string $name
-    ) {
-        $this->factories[$name] = $factory;
-    }
+    );
 }

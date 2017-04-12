@@ -7,7 +7,7 @@
 namespace WideFocus\Feed\Writer\Builder;
 
 use WideFocus\Feed\Entity\FeedInterface;
-use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterFactoryInterface;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\WriterFactoryAggregateInterface;
 use WideFocus\Feed\Writer\WriterInterface;
 
 /**
@@ -16,7 +16,7 @@ use WideFocus\Feed\Writer\WriterInterface;
 class WriterBuilder implements WriterBuilderInterface
 {
     /**
-     * @var NamedWriterFactoryInterface
+     * @var WriterFactoryAggregateInterface
      */
     private $writerFactory;
 
@@ -33,12 +33,12 @@ class WriterBuilder implements WriterBuilderInterface
     /**
      * Constructor.
      *
-     * @param NamedWriterFactoryInterface      $writerFactory
+     * @param WriterFactoryAggregateInterface  $writerFactory
      * @param WriterParametersBuilderInterface $parametersBuilder
      * @param WriterFieldsBuilderInterface     $fieldsBuilder
      */
     public function __construct(
-        NamedWriterFactoryInterface $writerFactory,
+        WriterFactoryAggregateInterface $writerFactory,
         WriterParametersBuilderInterface $parametersBuilder,
         WriterFieldsBuilderInterface $fieldsBuilder
     ) {

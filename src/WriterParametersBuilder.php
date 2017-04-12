@@ -7,7 +7,7 @@
 namespace WideFocus\Feed\Writer\Builder;
 
 use WideFocus\Feed\Entity\FeedInterface;
-use WideFocus\Feed\Writer\Builder\NamedFactory\NamedWriterParametersFactoryInterface;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\WriterParametersFactoryAggregateInterface;
 use WideFocus\Feed\Writer\WriterParametersInterface;
 
 /**
@@ -16,17 +16,17 @@ use WideFocus\Feed\Writer\WriterParametersInterface;
 class WriterParametersBuilder implements WriterParametersBuilderInterface
 {
     /**
-     * @var NamedWriterParametersFactoryInterface
+     * @var WriterParametersFactoryAggregateInterface
      */
     private $parametersFactory;
 
     /**
      * Constructor.
      *
-     * @param NamedWriterParametersFactoryInterface $parametersFactory
+     * @param WriterParametersFactoryAggregateInterface $parametersFactory
      */
     public function __construct(
-        NamedWriterParametersFactoryInterface $parametersFactory
+        WriterParametersFactoryAggregateInterface $parametersFactory
     ) {
         $this->parametersFactory = $parametersFactory;
     }

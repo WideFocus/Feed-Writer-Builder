@@ -4,13 +4,13 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\Tests\NamedFactory;
+namespace WideFocus\Feed\Writer\Builder\Tests\FactoryAggregate;
 
 use PHPUnit_Framework_TestCase;
-use WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterException;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\InvalidWriterException;
 
 /**
- * @coversDefaultClass \WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterException
+ * @coversDefaultClass \WideFocus\Feed\Writer\Builder\FactoryAggregate\InvalidWriterException
  */
 class InvalidWriterExceptionTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +19,7 @@ class InvalidWriterExceptionTest extends PHPUnit_Framework_TestCase
      *
      * @throws InvalidWriterException Always.
      *
-     * @expectedException \WideFocus\Feed\Writer\Builder\NamedFactory\InvalidWriterException
+     * @expectedException \WideFocus\Feed\Writer\Builder\FactoryAggregate\InvalidWriterException
      * @expectedExceptionMessage A writer with name foo has not been registered
      *
      * @covers ::notRegistered

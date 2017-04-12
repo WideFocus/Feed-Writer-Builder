@@ -4,7 +4,7 @@
  * https://www.widefocus.net
  */
 
-namespace WideFocus\Feed\Writer\Builder\NamedFactory;
+namespace WideFocus\Feed\Writer\Builder\FactoryAggregate;
 
 use WideFocus\Feed\Writer\WriterFactoryInterface;
 use WideFocus\Feed\Writer\WriterInterface;
@@ -13,8 +13,13 @@ use WideFocus\Feed\Writer\WriterParametersInterface;
 /**
  * Manages writers.
  */
-interface NamedWriterFactoryInterface
+class WriterFactoryAggregate implements WriterFactoryAggregateInterface
 {
+    /**
+     * @var WriterFactoryInterface[]
+     */
+    private $factories = [];
+
     /**
      * Create a writer.
      *
@@ -29,7 +34,14 @@ interface NamedWriterFactoryInterface
     public function createWriter(
         string $name,
         WriterParametersInterface $parameters
-    ): WriterInterface;
+    ): WriterInterface {
+        if (!array_key_exists($name, $this->factories)) {
+            throw InvalidWriterException::notRegistered($name);
+        }
+
+        return $this->factories[$name]
+            ->createWriter($parameters);
+    }
 
     /**
      * Add a writer factory.
@@ -42,5 +54,7 @@ interface NamedWriterFactoryInterface
     public function addWriterFactory(
         WriterFactoryInterface $factory,
         string $name
-    );
+    ) {
+        $this->factories[$name] = $factory;
+    }
 }

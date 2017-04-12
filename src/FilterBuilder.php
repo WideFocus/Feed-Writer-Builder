@@ -7,7 +7,7 @@
 namespace WideFocus\Feed\Writer\Builder;
 
 use WideFocus\Feed\Entity\Field\FeedFieldInterface;
-use WideFocus\Feed\Writer\Builder\NamedFactory\NamedFilterFactoryInterface;
+use WideFocus\Feed\Writer\Builder\FactoryAggregate\FilterFactoryAggregateInterface;
 use WideFocus\Parameters\ParameterSetterInterface;
 
 /**
@@ -16,7 +16,7 @@ use WideFocus\Parameters\ParameterSetterInterface;
 class FilterBuilder implements FilterBuilderInterface
 {
     /**
-     * @var NamedFilterFactoryInterface
+     * @var FilterFactoryAggregateInterface
      */
     private $filterFactory;
 
@@ -33,12 +33,12 @@ class FilterBuilder implements FilterBuilderInterface
     /**
      * Constructor.
      *
-     * @param NamedFilterFactoryInterface      $filterFactory
+     * @param FilterFactoryAggregateInterface  $filterFactory
      * @param ParameterSetterInterface         $parameterSetter
      * @param FilterParametersBuilderInterface $parameterBuilder
      */
     public function __construct(
-        NamedFilterFactoryInterface $filterFactory,
+        FilterFactoryAggregateInterface $filterFactory,
         ParameterSetterInterface $parameterSetter,
         FilterParametersBuilderInterface $parameterBuilder
     ) {
